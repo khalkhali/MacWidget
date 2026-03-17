@@ -1,0 +1,12 @@
+.DS_Store
+.build/
+.xcodebuild-widgetkit/
+dist/
+
+DerivedData/
+*.xcuserdatad/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+*.swp
+*.swo
