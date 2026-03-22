@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D91B60B99CAFE5E51F5F606 /* PowerStatusCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F160ADB87A95FADB38EAA2E /* PowerStatusCard.swift */; };
 		34BD04CE277F8135A557C6A0 /* CPUMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9449891AF8D74E1753D7F914 /* CPUMetrics.swift */; };
 		401E2246865C1E30B50603D1 /* CPUUsageWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A040B6BA3CF53FE17A2BDDC8 /* CPUUsageWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		59EBCDB893CFB1B43932DABD /* CPUUsageWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769E4A9BFD4EE7B5817300D3 /* CPUUsageWidgetBundle.swift */; };
+		66B30A61BC0B440B1DD2FB43 /* PowerMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7E71841311BACCF0E5691 /* PowerMetrics.swift */; };
 		6EEBB11845263DA88F20EF0C /* CPUUsageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954ABA591090975F6D0D3B1 /* CPUUsageCard.swift */; };
 		78B26850027913B79ED827B7 /* CPUMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9449891AF8D74E1753D7F914 /* CPUMetrics.swift */; };
+		7E6EF00F6B6D24E5764B8184 /* PowerMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7E71841311BACCF0E5691 /* PowerMetrics.swift */; };
+		7FFC4644A5A9198074A04622 /* PowerStatusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36159CE0EE719ED50E3C1C56 /* PowerStatusWidget.swift */; };
+		8FAF75E53422A3D3B2BCDD56 /* PowerStatusCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F160ADB87A95FADB38EAA2E /* PowerStatusCard.swift */; };
 		92FDD6E3EF67ABCCE765A35E /* CPUUsageWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DE875953820CBE9C553D46 /* CPUUsageWidget.swift */; };
 		C424F271E348CBE5A264C674 /* CPUUsageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35A5FAAA006AEEDE8957642 /* CPUUsageApp.swift */; };
 		E18A41B3673A736E0FD26DFC /* CPUUsageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954ABA591090975F6D0D3B1 /* CPUUsageCard.swift */; };
@@ -43,13 +48,16 @@
 
 /* Begin PBXFileReference section */
 		10DE875953820CBE9C553D46 /* CPUUsageWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUUsageWidget.swift; sourceTree = "<group>"; };
+		36159CE0EE719ED50E3C1C56 /* PowerStatusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerStatusWidget.swift; sourceTree = "<group>"; };
 		769E4A9BFD4EE7B5817300D3 /* CPUUsageWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUUsageWidgetBundle.swift; sourceTree = "<group>"; };
 		9449891AF8D74E1753D7F914 /* CPUMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUMetrics.swift; sourceTree = "<group>"; };
+		9F160ADB87A95FADB38EAA2E /* PowerStatusCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerStatusCard.swift; sourceTree = "<group>"; };
 		A040B6BA3CF53FE17A2BDDC8 /* CPUUsageWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CPUUsageWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF9126489B54682C2F8DD40A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C35A5FAAA006AEEDE8957642 /* CPUUsageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUUsageApp.swift; sourceTree = "<group>"; };
 		D2A560C37B597E3E4259AA63 /* CPUUsage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPUUsage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4FFB7551F8B0B8A8589B39A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D9D7E71841311BACCF0E5691 /* PowerMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerMetrics.swift; sourceTree = "<group>"; };
 		E954ABA591090975F6D0D3B1 /* CPUUsageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUUsageCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +77,7 @@
 				10DE875953820CBE9C553D46 /* CPUUsageWidget.swift */,
 				769E4A9BFD4EE7B5817300D3 /* CPUUsageWidgetBundle.swift */,
 				D4FFB7551F8B0B8A8589B39A /* Info.plist */,
+				36159CE0EE719ED50E3C1C56 /* PowerStatusWidget.swift */,
 			);
 			path = WidgetExtension;
 			sourceTree = "<group>";
@@ -97,6 +106,8 @@
 			children = (
 				9449891AF8D74E1753D7F914 /* CPUMetrics.swift */,
 				E954ABA591090975F6D0D3B1 /* CPUUsageCard.swift */,
+				D9D7E71841311BACCF0E5691 /* PowerMetrics.swift */,
+				9F160ADB87A95FADB38EAA2E /* PowerStatusCard.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -185,6 +196,8 @@
 				34BD04CE277F8135A557C6A0 /* CPUMetrics.swift in Sources */,
 				C424F271E348CBE5A264C674 /* CPUUsageApp.swift in Sources */,
 				E18A41B3673A736E0FD26DFC /* CPUUsageCard.swift in Sources */,
+				7E6EF00F6B6D24E5764B8184 /* PowerMetrics.swift in Sources */,
+				8FAF75E53422A3D3B2BCDD56 /* PowerStatusCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +209,9 @@
 				6EEBB11845263DA88F20EF0C /* CPUUsageCard.swift in Sources */,
 				92FDD6E3EF67ABCCE765A35E /* CPUUsageWidget.swift in Sources */,
 				59EBCDB893CFB1B43932DABD /* CPUUsageWidgetBundle.swift in Sources */,
+				66B30A61BC0B440B1DD2FB43 /* PowerMetrics.swift in Sources */,
+				0D91B60B99CAFE5E51F5F606 /* PowerStatusCard.swift in Sources */,
+				7FFC4644A5A9198074A04622 /* PowerStatusWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,7 +240,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = local.ariarahimi.cpuusage;
-				PRODUCT_NAME = "CPU Usage";
+				PRODUCT_NAME = MacWidget;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -308,7 +324,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = local.ariarahimi.cpuusage.widget;
-				PRODUCT_NAME = "CPU Usage Widget Extension";
+				PRODUCT_NAME = "MacWidget Widget Extension";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -385,7 +401,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = local.ariarahimi.cpuusage.widget;
-				PRODUCT_NAME = "CPU Usage Widget Extension";
+				PRODUCT_NAME = "MacWidget Widget Extension";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -404,7 +420,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = local.ariarahimi.cpuusage;
-				PRODUCT_NAME = "CPU Usage";
+				PRODUCT_NAME = MacWidget;
 				SDKROOT = macosx;
 			};
 			name = Debug;

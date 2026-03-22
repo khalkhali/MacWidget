@@ -29,7 +29,7 @@ On current macOS builds, CPU die temperature is not exposed through a stable pub
 ./scripts/build_widgetkit_app.sh
 ```
 
-After building, add `CPU Usage` from macOS `Edit Widgets`.
+After building, add the widgets from `MacWidget` in macOS `Edit Widgets`.
 
 ## Open and stop the host app
 

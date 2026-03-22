@@ -5,5 +5,6 @@ import WidgetKit
 struct CPUUsageWidgetBundle: WidgetBundle {
     var body: some Widget {
         CPUUsageWidget()
+        PowerStatusWidget()
     }
 }

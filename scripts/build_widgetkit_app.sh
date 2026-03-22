@@ -6,7 +6,7 @@ ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 PROJECT_NAME="CPUUsageWidget"
 PROJECT_PATH="$ROOT_DIR/${PROJECT_NAME}.xcodeproj"
 DERIVED_DATA_PATH="$HOME/Library/Developer/Xcode/DerivedData/${PROJECT_NAME}Local"
-APP_PATH="$DERIVED_DATA_PATH/Build/Products/Debug/CPU Usage.app"
+APP_PATH="$DERIVED_DATA_PATH/Build/Products/Debug/MacWidget.app"
 
 cd "$ROOT_DIR"
 
@@ -26,8 +26,8 @@ xcodebuild \
   DEVELOPMENT_TEAM="" \
   build
 
-if pgrep -f "$APP_PATH/Contents/MacOS/CPU Usage" >/dev/null 2>&1; then
-  pkill -f "$APP_PATH/Contents/MacOS/CPU Usage" || true
+if pgrep -f "$APP_PATH/Contents/MacOS/MacWidget" >/dev/null 2>&1; then
+  pkill -f "$APP_PATH/Contents/MacOS/MacWidget" || true
   sleep 1
 fi
 
