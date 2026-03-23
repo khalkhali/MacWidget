@@ -27,7 +27,7 @@ struct CPUUsageProvider: TimelineProvider {
         Task {
             let snapshot = await MetricSampler().sample()
             let entry = CPUUsageEntry(date: .now, snapshot: snapshot)
-            let refreshDate = Date.now.addingTimeInterval(30)
+            let refreshDate = Date.now.addingTimeInterval(5)
             completion(Timeline(entries: [entry], policy: .after(refreshDate)))
         }
     }

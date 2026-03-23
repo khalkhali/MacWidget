@@ -27,7 +27,7 @@ struct PowerStatusProvider: TimelineProvider {
         Task {
             let snapshot = await PowerSampler().sample()
             let entry = PowerStatusEntry(date: .now, snapshot: snapshot)
-            let refreshDate = Date.now.addingTimeInterval(15)
+            let refreshDate = Date.now.addingTimeInterval(5)
             completion(Timeline(entries: [entry], policy: .after(refreshDate)))
         }
     }

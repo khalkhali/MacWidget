@@ -62,7 +62,7 @@ private struct CPUUsageHostView: View {
         }
         .task {
             while !Task.isCancelled {
-                try? await Task.sleep(for: .seconds(15))
+                try? await Task.sleep(for: .seconds(5))
                 WidgetCenter.shared.reloadTimelines(ofKind: "CPUUsageWidget")
                 WidgetCenter.shared.reloadTimelines(ofKind: "USBPowerWidget")
             }

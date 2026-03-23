@@ -28,6 +28,7 @@ struct USBPortSnapshot: Sendable, Identifiable {
     let id: Int
     let index: Int
     let isConnected: Bool
+    let hasLiveData: Bool
     let advertisedVoltageVolts: Double?
     let advertisedCurrentAmps: Double?
     let activeVoltageVolts: Double?
@@ -39,6 +40,9 @@ struct USBPortSnapshot: Sendable, Identifiable {
     }
 
     var statusLabel: String {
+        guard hasLiveData else {
+            return "Unavailable"
+        }
         if activeVoltageVolts != nil, activeCurrentAmps != nil {
             return "Active"
         }
@@ -46,6 +50,10 @@ struct USBPortSnapshot: Sendable, Identifiable {
     }
 
     var electricalSummary: String {
+        guard hasLiveData else {
+            return "No live data"
+        }
+
         if let activeVoltageVolts, let activeCurrentAmps {
             return "\(activeVoltageVolts.formatted(.number.precision(.fractionLength(1))))V • \(activeCurrentAmps.formatted(.number.precision(.fractionLength(2))))A"
         }
@@ -85,10 +93,10 @@ struct PowerSnapshot: Sendable {
         powerWatts: 8.9,
         temperatureCelsius: 31.9,
         usbPorts: [
-            USBPortSnapshot(id: 0, index: 1, isConnected: true, advertisedVoltageVolts: 5.0, advertisedCurrentAmps: 3.0, activeVoltageVolts: nil, activeCurrentAmps: nil),
-            USBPortSnapshot(id: 1, index: 2, isConnected: false, advertisedVoltageVolts: nil, advertisedCurrentAmps: nil, activeVoltageVolts: nil, activeCurrentAmps: nil),
-            USBPortSnapshot(id: 2, index: 3, isConnected: false, advertisedVoltageVolts: nil, advertisedCurrentAmps: nil, activeVoltageVolts: nil, activeCurrentAmps: nil),
-            USBPortSnapshot(id: 3, index: 4, isConnected: true, advertisedVoltageVolts: 5.0, advertisedCurrentAmps: 1.46, activeVoltageVolts: 5.0, activeCurrentAmps: 1.46)
+            USBPortSnapshot(id: 0, index: 1, isConnected: true, hasLiveData: true, advertisedVoltageVolts: 5.0, advertisedCurrentAmps: 3.0, activeVoltageVolts: nil, activeCurrentAmps: nil),
+            USBPortSnapshot(id: 1, index: 2, isConnected: false, hasLiveData: false, advertisedVoltageVolts: nil, advertisedCurrentAmps: nil, activeVoltageVolts: nil, activeCurrentAmps: nil),
+            USBPortSnapshot(id: 2, index: 3, isConnected: false, hasLiveData: false, advertisedVoltageVolts: nil, advertisedCurrentAmps: nil, activeVoltageVolts: nil, activeCurrentAmps: nil),
+            USBPortSnapshot(id: 3, index: 4, isConnected: true, hasLiveData: true, advertisedVoltageVolts: 5.0, advertisedCurrentAmps: 1.46, activeVoltageVolts: 5.0, activeCurrentAmps: 1.46)
         ],
         deviceName: "bq40z651",
         lastUpdated: .now
@@ -126,19 +134,19 @@ struct PowerSnapshot: Sendable {
     }
 
     var usbConnectedPortCount: Int {
-        usbPorts.filter(\.isConnected).count
+        usbPorts.filter { $0.hasLiveData && $0.isConnected }.count
     }
 
     var primaryUSBContractLabel: String {
-        if let activePort = usbPorts.first(where: { $0.activeVoltageVolts != nil && $0.activeCurrentAmps != nil }) {
+        if let activePort = usbPorts.first(where: { $0.hasLiveData && $0.activeVoltageVolts != nil && $0.activeCurrentAmps != nil }) {
             return "Port \(activePort.index) • \(activePort.electricalSummary)"
         }
 
-        if let connectedPort = usbPorts.first(where: \.isConnected) {
+        if let connectedPort = usbPorts.first(where: { $0.hasLiveData && $0.isConnected }) {
             return "Port \(connectedPort.index) • \(connectedPort.electricalSummary)"
         }
 
-        return "No active USB power contract"
+        return "Live per-port USB power unavailable"
     }
 }
 
@@ -161,7 +169,7 @@ actor PowerSampler {
 
         let temperatureRaw = intValue(for: "Temperature", in: properties)
         let temperatureCelsius = temperatureRaw > 0 ? (Double(temperatureRaw) / 10) - 273.15 : nil
-        let usbPorts = parseUSBPorts(from: properties)
+        let usbPorts = parseUSBPorts(from: properties, allowLivePortContracts: externalConnected || isCharging)
 
         return PowerSnapshot(
             batteryPercent: percent,
@@ -193,7 +201,7 @@ actor PowerSampler {
         return properties
     }
 
-    private func parseUSBPorts(from properties: [String: Any]) -> [USBPortSnapshot] {
+    private func parseUSBPorts(from properties: [String: Any], allowLivePortContracts: Bool) -> [USBPortSnapshot] {
         let fedDetails = (properties["FedDetails"] as? [[String: Any]]) ?? []
         let controllerInfo = (properties["PortControllerInfo"] as? [[String: Any]]) ?? []
         let portCount = max(fedDetails.count, controllerInfo.count)
@@ -203,7 +211,7 @@ actor PowerSampler {
         return (0 ..< portCount).map { index in
             let fed = index < fedDetails.count ? fedDetails[index] : [:]
             let controller = index < controllerInfo.count ? controllerInfo[index] : [:]
-            let isConnected = boolValue(for: "FedExternalConnected", in: fed)
+            let controllerConnected = boolValue(for: "FedExternalConnected", in: fed)
 
             let pdoList = (controller["PortControllerPortPDO"] as? [NSNumber])?.map(\.uint32Value) ?? []
             let selectedPDO = selectedPDO(for: controller, from: pdoList)
@@ -215,11 +223,12 @@ actor PowerSampler {
             return USBPortSnapshot(
                 id: index,
                 index: index + 1,
-                isConnected: isConnected,
-                advertisedVoltageVolts: advertisedContract?.voltageVolts,
-                advertisedCurrentAmps: advertisedContract?.currentAmps,
-                activeVoltageVolts: activeVoltageVolts,
-                activeCurrentAmps: activeCurrentAmps
+                isConnected: allowLivePortContracts ? controllerConnected : false,
+                hasLiveData: allowLivePortContracts,
+                advertisedVoltageVolts: allowLivePortContracts ? advertisedContract?.voltageVolts : nil,
+                advertisedCurrentAmps: allowLivePortContracts ? advertisedContract?.currentAmps : nil,
+                activeVoltageVolts: allowLivePortContracts ? activeVoltageVolts : nil,
+                activeCurrentAmps: allowLivePortContracts ? activeCurrentAmps : nil
             )
         }
     }
